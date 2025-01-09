@@ -1,0 +1,56 @@
+-- Find the player
+local player = game.Players.LocalPlayer
+-- Declare a variable for the digging tool
+local tool = nil
+-- Declare a variable to control the auto-digging loop
+local isDigging = true
+
+-- Function to find the digging tool in the player's character
+local function findTool()
+    tool = player.Character:FindFirstChildOfClass("Tool")
+    if tool then
+        print("Tool found: " .. tool.Name)
+    else
+        print("No digging tool found in character.")
+    end
+end
+
+-- Auto Dig function
+local function autoDig()
+    while isDigging do
+        if tool then
+            tool:Activate()  -- Activate the tool to dig
+        else
+            print("No tool available for digging!")
+            break
+        end
+        wait(0.1)  -- Wait before the next activation
+    end
+end
+
+-- Function to stop auto digging
+local function stopDigging()
+    isDigging = false
+    print("Auto digging stopped.")
+end
+
+-- Function to restart auto digging
+local function restartDigging()
+    isDigging = true
+    findTool()  -- Recheck if the tool is available
+    autoDig()   -- Restart the auto-digging process
+end
+
+-- Find the tool at the start
+findTool()
+
+-- Start the auto-digging process
+if tool then
+    autoDig()
+else
+    print("Cannot start auto-digging without a tool.")
+end
+
+-- Example of how to use the stop and restart functions:
+-- stopDigging()  -- To stop the auto-digging
+-- restartDigging()  -- To restart the auto-digging if needed
