@@ -1,0 +1,17 @@
+local player = game.Players.LocalPlayer
+local tool = player.Character:FindFirstChildOfClass("Tool") -- ค้นหาเครื่องมือที่ใช้ขุด
+
+if not tool then
+    print("ไม่พบเครื่องมือขุดในตัวละคร")
+    return
+end
+
+-- เริ่มขุดอัตโนมัติ
+while wait(0.1) do
+    if tool then
+        tool:Activate() -- ใช้คำสั่ง Activate เพื่อขุด
+    else
+        print("เครื่องมือหายไป")
+        break
+    end
+end
